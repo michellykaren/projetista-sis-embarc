@@ -25,7 +25,17 @@ Utilizou-se o `crontab` para agendar a execução do script que faz as verifica�
 No script config_q1.sh foi feita toda a parte necessária para copiar script de monitoramento de recursos (q1.sh) no bin do sistema, configuração do protocolo para envio de email e instalação dos pacotes necessários. Durante a sua execução várias checagens são realizadas para evitar possíveis erros de path, de existência de arquivos e de configurações necessárias para o bom funcionamento do script.
 
 ### Execução:
-Execute os comandos a partir da raiz do projeto.
+
+Caso você queira mudar os limites de valores padrão e quem deve receber o email de notificação mude as linhas 4, 5, 6 e 7 de q1.sh.
+
+```bash
+4. limite_particao=0 
+5. limite_ram=0
+6. limite_temp=0
+7. dest_mail="azeitonadoteste@gmail.com"
+```
+
+Após definir os limites de alerta e quem irá receber o email, execute os comandos a seguir a partir da raiz do projeto.
 Executar cada linha abaixo separadamente.
 
 ```bash
@@ -34,19 +44,26 @@ cd Q1
 chmod +x config_q1.sh
 ./config_q1.sh
 ```
+Se aparecer alguma opção de configuração de mail, escolha `No configuration` e se o msmtp configuration pedir algo, como na imagem abaixo, escolha `<No>`.
+
+![image](https://github.com/michellykaren/projetista-sis-embarc/assets/29697453/530bad60-2559-415e-ab5c-3ecf749fde27)
 
 ### Verificação de Bom Funcionamento:
-Verifique a presença do script /usr/local/bin/Q1/q1.sh no crontab digitando o comando 
+- Verifique a presença do script /usr/local/bin/Q1/q1.sh no crontab digitando o comando 
 ```bash
 crontab -l
 ```
-Verifique se recebeu o e-mail de azeitonadoteste@hotmail.com um minuto após executar `./config_q1.sh`
 
-Verifique o log em /usr/local/bin/Q1:
+- Verifique se recebeu o e-mail de azeitonadoteste@hotmail.com um minuto após executar `./config_q1.sh`
+
+- Em caso de limites ultrapassados, verifique o log em /usr/local/bin/Q1:
 ```bash
 test -f "/usr/local/bin/Q1/q1.log" && echo "Presente" || echo "Ausente" 
 ```
 
+```bash
+cat /usr/local/bin/Q1/q1.log
+```
 ---
 ## Q2
 
@@ -68,14 +85,12 @@ make clean
 ```
 
 ### Verificação de Bom Funcionamento:
-Verifique presença das mensagens organizadas no terminal e verifique no syslog com 
+- Verifique a criação/supressão do executável com `make` e `make clean`.
+- Verifique presença das mensagens organizadas no terminal e verifique no syslog com 
 
 ```bash
 cat /var/log/syslog
-```
-
-Verifique o funcionamento do comando `make` e `make clean`
- 
+``` 
 ---
 ## Q3
 
@@ -97,7 +112,11 @@ make clean
 ```
 
 ### Verificação de Bom Funcionamento:
-Verifique as saídas dos dados do payload no console e a criação/supressão do executável com `make` e `make clean`.
+- Verifique a criação/supressão do executável com `make` e `make clean`.
+
+- Verifique as saídas dos dados do payload no console como na imagem abaixo:
+
+![image](https://github.com/michellykaren/projetista-sis-embarc/assets/29697453/9c971640-49ce-4707-be52-62cf336f0731)
 
 ---
 ## Q4
@@ -121,16 +140,19 @@ make
 ```
 
 ### Verificação de Bom Funcionamento:
-Verifique a presença da imagem `processed_img1.jpg` em Q4/processed_img:
+- Verifique a presença da imagem `processed_img1.jpg` em Q4/processed_img:
 ```bash
 test -f /processed_img/processed_img1.jpg && echo "Imagem presente" || echo "Imagem ausente"  
 ```
 
-Verifique no console:
-- "Processo 1: Lendo imagem."
-- "Processo 2: Processar e salvar imagem."
-- "Processo 1: Imagem enviada."
-- "Processo 2: Imagem salva."
+- Verifique no console a seguinte mensagem:
+"Processo 1: Lendo imagem."
+"Processo 2: Processar e salvar imagem."
+"Processo 1: Imagem enviada."
+"Processo 2: Imagem salva."
 
-Isso ilustra o funcionamento concorrente dos processos: embora o processo pai tenha começado primeiro, a velocidade de execução, o tempo que leva para ler e enviar os dados da imagem, e a pronta disponibilidade do processo filho para processar esses dados podem levar a uma situação em que o "processamento e salvamento da imagem" pelo processo filho é concluído antes do processo pai fazer o print do envio da imagem.
+Essas mensagens ilustram o funcionamento concorrente dos processos: embora o processo pai tenha começado primeiro, a velocidade de execução, o tempo que leva para ler e enviar os dados da imagem, e a pronta disponibilidade do processo filho para processar esses dados podem levar a uma situação em que o "processamento e salvamento da imagem" pelo processo filho é concluído antes do processo pai fazer o print do envio da imagem.
+
+---
+Qualquer dúvida, contato pelo email michellykaren15@gmail.com :)
 
