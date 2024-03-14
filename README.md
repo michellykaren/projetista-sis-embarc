@@ -43,7 +43,7 @@ Verifique se recebeu o e-mail de azeitonadoteste@hotmail.com um minuto após exe
 
 Verifique o log em /usr/local/bin/Q1:
 ```bash
-[ -f "/usr/local/bin/Q1/q1.log" ] && echo "Presente" || echo "Ausente"
+test -f "/usr/local/bin/Q1/q1.log" && echo "Presente" || echo "Ausente" 
 ```
 
 ---
