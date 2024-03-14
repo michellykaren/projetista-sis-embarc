@@ -77,7 +77,33 @@ chmod 600 "$MSMTP_CONFIG_FILE"
 
 echo "Configuração do msmtp concluída."
 
-# atualiza o crontab para apontar para o novo local de q1.sh
-(crontab -l 2>/dev/null; echo "10 01 * * * /usr/local/bin/Q1/q1.sh") | crontab -
+# crontab 
+# pega o minuto e a hora atual
+minuto_atual=$(date +'%M')
+hora_atual=$(date +'%H')
 
-echo "Script adicionado ao crontab para execução às 01:10 todos os dias."
+# calcula o próximo minuto
+proximo_minuto=$((minuto_atual + 1))
+
+# se o próximo minuto for 60, a gente ajusta pra 0 e aumenta uma hora
+if [ $proximo_minuto -eq 60 ]; then
+    proximo_minuto=0
+    hora_atual=$((hora_atual + 1))
+    # se a hora for 24, ajusta pra 0, porque passou do dia
+    if [ $hora_atual -eq 24 ]; then
+        hora_atual=0
+    fi
+fi
+
+# garante que o minuto e a hora tenham dois dígitos
+proximo_minuto=$(printf "%02d" $proximo_minuto)
+hora_atual=$(printf "%02d" $hora_atual)
+
+# cria a linha pro crontab com o horário de daqui a 1 minuto
+crontab_job="$proximo_minuto $hora_atual * * * /usr/local/bin/Q1/q1.sh"
+
+# adiciona o novo job no crontab
+(crontab -l 2>/dev/null; echo "$crontab_job") | crontab -
+
+# o script no crontab pra rodar daqui a 1 minuto
+echo "script adicionado ao crontab para execução às $hora_atual:$proximo_minuto todos os dias."
