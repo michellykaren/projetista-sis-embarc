@@ -104,7 +104,7 @@ Verifique as saídas dos dados do payload no console e a criação/supressão do
 ### Problema:
 Desenvolver um programa em C para simular a captura e processamento de imagens de veículos em tempo real, operando em dois processos distintos: um para ler imagens de uma câmera (real ou simulada) e outro para apenas receber e salvar essas imagens em disco. A comunicação entre os processos deve evitar o uso de disco e, ao invés, utilizar um método de Comunicação Inter-Processos (IPC) escolhido pelo desenvolvedor. Além disso, antes da transferência da imagem, o tamanho dela deve ser comunicado do Processo 1 para o Processo 2, garantindo um protocolo de comunicação entre eles.
 
-### Solução
+### Solução:
 Usa-se um pipe nomeado (FIFO) para a comunicação inter-processos (IPC), permitindo a comunicação unidirecional entre dois processos de forma simples. Outras opções incluem memória compartilhada ou Sockets UNIX.
 Nessa solução o processo 1 lê um arquivo de imagem e envia seu conteúdo através de um pipe nomeado para o processo 2, que então salva a "imagem processada" em um novo arquivo. O código tenta remover o pipe nomeado ao final da execução para evitar a presença de um pipe nomeado não utilizado no sistema de arquivos.
 O protocolo de comunicação garante que a imagem seja recebida corretamente, pois, antes de enviar a imagem propriamente dita, o Processo 1 envia o tamanho da imagem em bytes. O Processo 2 lê essa informação primeiro, sabendo assim quantos bytes esperar para a imagem. 
@@ -119,7 +119,7 @@ make
 ./q4.o
 ```
 
-### Verificação de Bom Funcionamento
+### Verificação de Bom Funcionamento:
 Verifique no console:
 - "Processo 1: Lendo imagem."
 - "Processo 2: Processar e salvar imagem."
