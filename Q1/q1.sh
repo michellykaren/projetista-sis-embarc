@@ -1,9 +1,10 @@
 #!/bin/bash
 
-# defino os limites de alerta
-limite_particao=2 # Mudança aqui se desejar limites específicos
+# defina os limites de alerta e quem irá receber o email
+limite_particao=2 
 limite_ram=12
 limite_temp=50
+dest_mail="azeitonadoteste@gmail.com"
 
 # verifico o uso das partições
 particoes=$(df | awk -v limite_particao="$limite_particao" '{gsub(/%/, "", $5); if (NR!=1 && $5+0 > limite_particao && $1 ~ "/dev/") print $1 " " $5"%"}')
@@ -21,6 +22,7 @@ fi
 # defino o local padrão do arquivo de log com base na existência do diretório /usr/local/bin/Q1
 if [ -d "/usr/local/bin/Q1" ]; then
     ARQUIVO_LOG="/usr/local/bin/Q1/q1.log"
+    ARQUIVO_LOG="$(pwd)/q1.log"
 else
     ARQUIVO_LOG="$(pwd)/q1.log"
 fi
@@ -72,6 +74,6 @@ if [ -n "$particoes" ] || [ "$(echo "$uso_ram > $limite_ram" | bc)" -eq 1 ] || [
     corpo_email="Subject: Uso dos recursos acima do normal\n\n${mensagem_log}"
 
     # envio do email
-    echo -e "$corpo_email" | msmtp -a outlook --file="$MSMTP_CONFIG_FILE" azeitonadoteste@gmail.com
+    echo -e "$corpo_email" | msmtp -a outlook --file="$MSMTP_CONFIG_FILE" "$dest_mail" 
         
 fi
