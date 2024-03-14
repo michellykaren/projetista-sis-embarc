@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # defina os limites de alerta e quem irá receber o email
-limite_particao=2 
-limite_ram=12
-limite_temp=50
+limite_particao=0 
+limite_ram=0
+limite_temp=0
 dest_mail="azeitonadoteste@gmail.com"
 
 # verifico o uso das partições
@@ -16,13 +16,17 @@ uso_ram=$(free | awk '/Mem/{print $3/$2 * 100}' | awk '{printf "%.2f", $1}')
 if ls /sys/class/thermal/thermal_zone*/temp 1> /dev/null 2>&1; then
     temperaturas=$(cat /sys/class/thermal/thermal_zone*/temp | awk -v limite_temp="$limite_temp" '{temp=$1/1000; if (temp > limite_temp) print temp"°C"}')
 else
-    temperaturas="Não foi possível verificar a temperatura. Verificação não compatível com a configuração de pastas atual do sistema."
+    if command -v sensors > /dev/null 2>&1; then
+        # lm-sensors para obter temperaturas
+        temperaturas=$(sensors | awk -v limite_temp="$limite_temp" '/Core/ {temp=substr($3, 2, length($3)-5); if (temp+0 > limite_temp) print $3}')
+    else
+        temperaturas="Não foi possível verificar a temperatura. Verificação não compatível com a configuração de pastas atual do sistema ou lm-sensors não instalado."
+    fi
 fi
 
 # defino o local padrão do arquivo de log com base na existência do diretório /usr/local/bin/Q1
 if [ -d "/usr/local/bin/Q1" ]; then
     ARQUIVO_LOG="/usr/local/bin/Q1/q1.log"
-    ARQUIVO_LOG="$(pwd)/q1.log"
 else
     ARQUIVO_LOG="$(pwd)/q1.log"
 fi
@@ -40,12 +44,12 @@ if [ -n "$particoes" ] || [ "$(echo "$uso_ram > $limite_ram" | bc)" -eq 1 ] || [
     if [ -n "$particoes" ]; then
         mensagem_log+="Partições acima do limite:\n$particoes\n"
     fi
-    if [ "$temperaturas" != "Não foi possível verificar a temperatura. Verificação não compatível com a configuração de pastas atual do sistema." ]; then
+    if [ "$temperaturas" !="Não foi possível verificar a temperatura. Verificação não compatível com a configuração de pastas atual do sistema ou lm-sensors não instalado." ]; then
         mensagem_log+="Temperaturas acima do limite:\n$temperaturas\n"
-    else
-        mensagem_log+="$temperaturas\n"
     fi
-    mensagem_log+="Uso de RAM: $uso_ram%\n"
+    if [ "$(echo "$uso_ram > $limite_ram" | bc)" -eq 1 ]; then
+        mensagem_log+="Uso de RAM: $uso_ram%\n"
+    fi
     
     # escrevendo no arquivo de log
     echo -e "$mensagem_log" >> "$ARQUIVO_LOG"

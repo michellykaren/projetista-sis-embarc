@@ -27,7 +27,7 @@ echo "q1.sh copiado para $DESTINO com sucesso."
 echo "Instalando pacotes necessários..."
 
 # Lista de pacotes necessários
-pacotes=("bc" "ca-certificates" "lm-sensors" "mailutils" "msmtp")
+pacotes=("bc" "ca-certificates" "lm-sensors" "msmtp")
 
 # Loop através da lista de pacotes para verificar e instalar se necessário
 for pacote in "${pacotes[@]}"; do
