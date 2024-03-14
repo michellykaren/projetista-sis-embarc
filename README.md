@@ -13,11 +13,12 @@ Tecnologias usadas:
 ---
 
 # Resumo dos Projetos Q1, Q2, Q3 e Q4
+Para executar o projeto faça o `git clone https://github.com/michellykaren/projetista-sis-embarc.git`, depois execute o terminal a partir da raiz do projeto `cd projetista-sis-embarc`.
 
 ## Q1
 
 ### Problema:
-Precisamos de um script que, executado pela crontab do sistema, verifica o uso das partições, memória RAM e a temperatura dos cores, enviando um e-mail de alerta e salvar em um arquivo log se qualquer um estiver acima do limite definido no script.
+Precisamos de um script que, executado pela crontab do sistema, verifica o uso das partições, memória RAM e a temperatura dos cores, enviando um e-mail de alerta e salvando em um arquivo log se qualquer um estiver acima do limite definido no script.
 
 ### Solução:
 Utilizou-se o `crontab` para agendar a execução do script que faz as verificações e envia e-mails de alerta.
@@ -73,7 +74,7 @@ Verifique presença das mensagens organizadas no terminal e verifique no syslog 
 cat /var/log/syslog
 ```
 
-Verifique o funcionamento do comando ``make` e `make clean`
+Verifique o funcionamento do comando `make` e `make clean`
  
 ---
 ## Q3
