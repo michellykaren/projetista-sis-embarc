@@ -39,11 +39,12 @@ Verifique a crontab com
 ```bash
 crontab -l
 ```
+Verifique se recebeu o e-mail de azeitonadoteste@hotmail.com um minuto após executar `./config_q1.sh`
+
 Verifique o log em /usr/local/bin/Q1:
 ```bash
 [ -f "/usr/local/bin/Q1/q1.log" ] && echo "Presente" || echo "Ausente"
 ```
-Verifique se recebeu o e-mail (azeitonadoteste@hotmail.com).
 
 ---
 ## Q2
