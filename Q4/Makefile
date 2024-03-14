@@ -5,7 +5,7 @@ TARGET=q4
 all: $(TARGET)
 
 $(TARGET): q4.c
-	$(CXX) $(CXXFLAGS) -o $(TARGET) q4.c
+	$(CXX) $(CXXFLAGS) -o $(TARGET).o q4.c
 
 clean:
-	rm -f $(TARGET)
+	rm -f $(TARGET).o

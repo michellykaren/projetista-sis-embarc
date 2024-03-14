@@ -6,7 +6,7 @@ TARGET=q3
 all: $(TARGET)
 
 $(TARGET): q3.cpp
-	$(CXX) $(CXXFLAGS) -o $(TARGET) q3.cpp $(LDFLAGS)
+	$(CXX) $(CXXFLAGS) -o $(TARGET).o q3.cpp $(LDFLAGS)
 
 clean:
-	rm -f $(TARGET)
+	rm -f $(TARGET).o
