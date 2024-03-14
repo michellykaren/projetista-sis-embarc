@@ -1,5 +1,4 @@
 # Projeto de Avaliação de Nível Projetista Sistemas Embarcados
-
 ---
 
 # Visão do projeto
@@ -25,12 +24,14 @@ Utilizou-se o `crontab` para agendar a execução do script que faz as verifica�
 No script config_q1.sh foi feita toda a parte necessária para copiar script de monitoramento de recursos (q1.sh) no bin do sistema, configuração do protocolo para envio de email e instalação dos pacotes necessários. Durante a sua execução várias checagens são realizadas para evitar possíveis erros de path, de existência de arquivos e de configurações necessárias para o bom funcionamento do script.
 
 ### Execução:
+Execute os comandos a partir da raiz do projeto.
 Executar cada linha abaixo separadamente.
 
 ```bash
 sudo -i
-chmod +x Q1/config_q1.sh
-./Q1/config_q1.sh
+cd Q1
+chmod +x config_q1.sh
+./config_q1.sh
 ```
 
 ### Verificação de Bom Funcionamento:
@@ -58,6 +59,7 @@ Usar um mutex para criar uma região crítica que sincroniza o acesso à saída,
 Executar cada linha abaixo separadamente.
 
 ```bash
+cd Q2
 make
 ./q2.o
 make clean
@@ -84,6 +86,7 @@ O produtor lê o arquivo XML, extrai informações com regex e coloca na fila. O
 Executar cada linha abaixo separadamente.
 
 ```bash
+cd Q3
 make
 ./q3.o
 make clean
@@ -106,8 +109,9 @@ Usamos `mkfifo` para criar um pipe nomeado, permitindo a comunicação entre os 
 Executar cada linha abaixo separadamente.
 
 ```bash
-gcc q4.c -o q4
-./q4
+cd Q4
+make
+./q4.o
 ```
 
 ### Verificação de Bom Funcionamento
