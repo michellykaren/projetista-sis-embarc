@@ -120,6 +120,11 @@ make
 ```
 
 ### Verificação de Bom Funcionamento:
+Verifique a presença da imagem `processed_img1.jpg` em Q4/processed_img:
+```bash
+test -f Q4/processed_img/processed_img1.jpg && echo "Imagem presente" || echo "Imagem ausente"  
+```
+
 Verifique no console:
 - "Processo 1: Lendo imagem."
 - "Processo 2: Processar e salvar imagem."
