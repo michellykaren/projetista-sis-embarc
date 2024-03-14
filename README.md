@@ -35,7 +35,7 @@ chmod +x config_q1.sh
 ```
 
 ### Verificação de Bom Funcionamento:
-Verifique a crontab com 
+Verifique a presença do script /usr/local/bin/Q1/q1.sh no crontab digitando o comando 
 ```bash
 crontab -l
 ```
@@ -67,12 +67,14 @@ make clean
 ```
 
 ### Verificação de Bom Funcionamento:
-Verifique no syslog com 
+Verifique presença das mensagens organizadas no terminal e verifique no syslog com 
 
 ```bash
 cat /var/log/syslog
 ```
 
+Verifique o funcionamento do comando ``make` e `make clean`
+ 
 ---
 ## Q3
 
@@ -94,16 +96,18 @@ make clean
 ```
 
 ### Verificação de Bom Funcionamento:
-Verifique as saídas dos dados do payload no console e a criação/supressão do executável com make e make clean.
+Verifique as saídas dos dados do payload no console e a criação/supressão do executável com `make` e `make clean`.
 
 ---
 ## Q4
 
 ### Problema:
-Desenvolver um software em C para simular a leitura de imagens de uma câmera em tempo real e o processamento para TO DO
+Desenvolver um programa em C para simular a captura e processamento de imagens de veículos em tempo real, operando em dois processos distintos: um para ler imagens de uma câmera (real ou simulada) e outro para apenas receber e salvar essas imagens em disco. A comunicação entre os processos deve evitar o uso de disco e, ao invés, utilizar um método de Comunicação Inter-Processos (IPC) escolhido pelo desenvolvedor. Além disso, antes da transferência da imagem, o tamanho dela deve ser comunicado do Processo 1 para o Processo 2, garantindo um protocolo de comunicação entre eles.
 
 ### Solução
-Usamos `mkfifo` para criar um pipe nomeado, permitindo a comunicação entre os processos sem escrita em disco.
+Usa-se um pipe nomeado (FIFO) para a comunicação inter-processos (IPC), permitindo a comunicação unidirecional entre dois processos de forma simples. Outras opções incluem memória compartilhada ou Sockets UNIX.
+Nessa solução o processo 1 lê um arquivo de imagem e envia seu conteúdo através de um pipe nomeado para o processo 2, que então salva a "imagem processada" em um novo arquivo. O código tenta remover o pipe nomeado ao final da execução para evitar a presença de um pipe nomeado não utilizado no sistema de arquivos.
+O protocolo de comunicação garante que a imagem seja recebida corretamente, pois, antes de enviar a imagem propriamente dita, o Processo 1 envia o tamanho da imagem em bytes. O Processo 2 lê essa informação primeiro, sabendo assim quantos bytes esperar para a imagem. 
 
 ### Execução:
 
