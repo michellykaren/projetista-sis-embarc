@@ -40,8 +40,14 @@ Executar cada linha abaixo separadamente.
 
 ```bash
 sudo su
+```
+```bash
 cd Q1
+```
+```bash
 chmod +x config_q1.sh
+```
+```bash
 ./config_q1.sh
 ```
 Se aparecer alguma opção de configuração de mail, escolha `No configuration` e se o msmtp configuration pedir algo, como na imagem abaixo, escolha `<No>`.
@@ -79,8 +85,14 @@ Executar cada linha abaixo separadamente.
 
 ```bash
 cd Q2
+```
+```bash
 make
+```
+```bash
 ./q2.o
+```
+```bash
 make clean
 ```
 
@@ -106,8 +118,14 @@ Executar cada linha abaixo separadamente.
 
 ```bash
 cd Q3
+```
+```bash
 make
+```
+```bash
 ./q3.o
+```
+```bash
 make clean
 ```
 
@@ -135,10 +153,13 @@ Executar cada linha abaixo separadamente.
 
 ```bash
 cd Q4
+```
+```bash
 make
+```
+```bash
 ./q4.o
 ```
-
 ### Verificação de Bom Funcionamento:
 - Verifique a presença da imagem `processed_img1.jpg` em Q4/processed_img:
 ```bash
@@ -152,6 +173,18 @@ test -f /processed_img/processed_img1.jpg && echo "Imagem presente" || echo "Ima
 "Processo 2: Imagem salva."
 
 Essas mensagens ilustram o funcionamento concorrente dos processos: embora o processo pai tenha começado primeiro, a velocidade de execução, o tempo que leva para ler e enviar os dados da imagem, e a pronta disponibilidade do processo filho para processar esses dados podem levar a uma situação em que o "processamento e salvamento da imagem" pelo processo filho é concluído antes do processo pai fazer o print do envio da imagem.
+
+---
+### SOS! Como limpar as configurações feitas?
+Após validações, execute os comandos abaixo na raiz do projeto:
+
+```bash
+chmod +x cleanup_program.sh
+```
+
+```bash
+./cleanup_program.sh
+```
 
 ---
 Qualquer dúvida, contato pelo email michellykaren15@gmail.com :)
