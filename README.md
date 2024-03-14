@@ -13,7 +13,7 @@ Tecnologias usadas:
 ---
 
 # Resumo dos Projetos Q1, Q2, Q3 e Q4
-Para executar o projeto faça o `git clone https://github.com/michellykaren/projetista-sis-embarc.git`, depois execute o terminal a partir da raiz do projeto `cd projetista-sis-embarc`.
+Para executar o projeto faça o `git clone https://github.com/michellykaren/projetista-sis-embarc.git`, depois execute o terminal a partir da raiz do projeto `cd projetista-sis-embarc`. O tempo para a verificação de todas as questões é de 10 minutos a 30 minutos.
 
 ## Q1
 
@@ -29,7 +29,7 @@ Execute os comandos a partir da raiz do projeto.
 Executar cada linha abaixo separadamente.
 
 ```bash
-sudo -i
+sudo su
 cd Q1
 chmod +x config_q1.sh
 ./config_q1.sh
@@ -123,7 +123,7 @@ make
 ### Verificação de Bom Funcionamento:
 Verifique a presença da imagem `processed_img1.jpg` em Q4/processed_img:
 ```bash
-test -f Q4/processed_img/processed_img1.jpg && echo "Imagem presente" || echo "Imagem ausente"  
+test -f /processed_img/processed_img1.jpg && echo "Imagem presente" || echo "Imagem ausente"  
 ```
 
 Verifique no console:
